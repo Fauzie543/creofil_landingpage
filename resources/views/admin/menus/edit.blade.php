@@ -35,6 +35,11 @@
         </div>
 
         <div class="mb-3">
+            <label class="form-label">Deskripsi</label>
+            <input type="text" name="description" value="{{ $menu->description }}" class="form-control">
+        </div>
+
+        <div class="mb-3">
             <label class="form-label">Foto Saat Ini</label><br>
             @if($menu->photo)
             <img src="{{ asset('storage/' . $menu->photo) }}" alt="Menu" style="height: 100px;">

@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/events', EventController::class);
-    Route::resource('/users', UserController::class)->only(['index'])->names('users');
+    Route::resource('/users', \App\Http\Controllers\Admin\UserController::class);
     Route::get('/feedback', [App\Http\Controllers\Admin\FeedbackController::class, 'index'])->name('feedback.index');
     Route::resource('/posters', App\Http\Controllers\Admin\PosterController::class);
     Route::resource('/menus', App\Http\Controllers\Admin\MenuController::class);

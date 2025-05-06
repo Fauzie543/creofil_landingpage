@@ -54,9 +54,6 @@
     </a>
 </div>
 
-@if(session('success'))
-<div class="alert alert-success">{{ session('success') }}</div>
-@endif
 
 <div class="table-responsive shadow-sm rounded">
     <table class="table table-hover align-middle table-bordered mb-0 table-custom">
@@ -65,6 +62,7 @@
                 <th>Nama</th>
                 <th>Kategori</th>
                 <th>Harga</th>
+                <th>Deskripsi</th>
                 <th>Foto</th>
                 <th>Status</th>
                 <th>Aksi</th>
@@ -76,6 +74,7 @@
                 <td>{{ $menu->name }}</td>
                 <td>{{ $menu->category->name ?? '-' }}</td>
                 <td>Rp {{ number_format($menu->price) }}</td>
+                <td>{{ $menu->description }}</td>
                 <td>
                     @if($menu->photo)
                     <img src="{{ asset('storage/' . $menu->photo) }}" alt="Menu" style="height: 60px;">

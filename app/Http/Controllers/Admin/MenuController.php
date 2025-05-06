@@ -39,10 +39,11 @@ class MenuController extends Controller
             'name' => 'required',
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|integer',
+            'description' => 'nullable',
             'photo' => 'nullable|image|max:2048',
         ]);
 
-        $data = $request->only('name', 'category_id', 'price', 'status');
+        $data = $request->only('name', 'category_id', 'price', 'description', 'status');
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('menus', 'public');
         }
@@ -79,10 +80,11 @@ class MenuController extends Controller
             'name' => 'required',
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|integer',
+            'description' => 'nullable',
             'photo' => 'nullable|image|max:2048',
         ]);
 
-        $data = $request->only('name', 'category_id', 'price', 'status');
+        $data = $request->only('name', 'category_id', 'price', 'description', 'status');
         if ($request->hasFile('photo')) {
             if ($menu->photo) Storage::disk('public')->delete($menu->photo);
             $data['photo'] = $request->file('photo')->store('menus', 'public');

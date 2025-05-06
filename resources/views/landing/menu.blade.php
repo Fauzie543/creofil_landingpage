@@ -36,6 +36,9 @@
                     @endif
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title text-primary fw-semibold">{{ $menu->name }}</h5>
+                        @if($menu->description)
+                        <p class="card-text text-muted small">{{ $menu->description }}</p>
+                        @endif
                         <p class="card-text mb-1"><strong>Kategori:</strong> {{ $menu->category->name }}</p>
                         <p class="card-text mb-1"><strong>Harga:</strong> Rp
                             {{ number_format($menu->price, 0, ',', '.') }}</p>
