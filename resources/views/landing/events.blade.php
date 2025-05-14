@@ -2,56 +2,70 @@
 
 @push('styles')
 <style>
-html,
+:root {
+    --primary-color: #fca311;
+    --primary-soft: #ffe5b4;
+    --primary-gradient: linear-gradient(135deg, #fca311 0%, #ffe5b4 100%);
+    --accent-color: #14213d;
+    --light-gray: #f7f7f7;
+}
+
 body {
-    height: 100%;
+    background-color: var(--light-gray);
+    color: #333;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-/* Modal Styles */
-.modal-hidden {
-    display: none;
-}
-
-.modal-visible {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 1050;
-}
-
-.modal-content {
-    background: #fff;
-    padding: 2rem;
+/* Carousel Caption Styling */
+.carousel-caption {
+    background: rgba(252, 163, 17, 0.8);
+    /* semi-transparan orange */
     border-radius: 12px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    animation: fadeInZoom 0.3s ease-in-out;
+    padding: 1rem 1.5rem;
+    color: #fff;
 }
 
-.modal-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 24px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
+/* Carousel Indicator Colors */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+
+    border-radius: 50%;
+    padding: 1rem;
 }
 
-@keyframes fadeInZoom {
-    0% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
+/* Section Title */
+h3 {
+    color: var(--accent-color);
+}
 
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+/* Event Section Background */
+#event {
+    background: var(--primary-gradient);
+    color: #333;
+}
+
+/* Calendar Card */
+#calendar {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(252, 163, 17, 0.15);
+    border-left: 5px solid #fca311;
+}
+
+/* Event List */
+ul li {
+    padding: 6px 0;
+}
+
+/* Default message styling */
+.bg-gray-100 {
+    background-color: #fff3e0 !important;
+}
+
+/* Button Close Modal (optional future use) */
+.btn-close {
+    filter: brightness(0) saturate(100%) invert(40%) sepia(78%) saturate(1227%) hue-rotate(358deg) brightness(105%) contrast(101%);
 }
 </style>
 @endpush
@@ -75,6 +89,8 @@ body {
                 <h5>{{ $event->title }}</h5>
                 <p>{{ \Carbon\Carbon::parse($event->start)->format('d M Y H:i') }} -
                     {{ \Carbon\Carbon::parse($event->end)->format('d M Y H:i') }}</p>
+                <p>{{ $event->description}}</p>
+
             </div>
         </div>
         @empty
@@ -125,7 +141,7 @@ body {
         @if ($events->count())
         <ul class="mt-4">
             @foreach($events as $event)
-            <li><strong>{{ \Carbon\Carbon::parse($event->start_time)->format('d M') }}</strong> -
+            <li><strong>{{ \Carbon\Carbon::parse($event->start)->format('d M Y ') }}</strong> -
                 {{ $event->title }}</li>
             @endforeach
         </ul>
@@ -152,18 +168,29 @@ document.addEventListener('DOMContentLoaded', function() {
         height: 500,
         events: @json($events),
         eventClick: function(info) {
-            // Set content to modal
-            document.getElementById('modalEventTitle').textContent = info.event.title;
-            document.getElementById('modalEventStart').textContent = new Date(info.event.start)
-                .toLocaleString();
-            document.getElementById('modalEventEnd').textContent = info.event.end ? new Date(
-                info
-                .event.end).toLocaleString() : '-';
+            const targetTitle = info.event.title;
 
-            // Show modal
-            let modal = new bootstrap.Modal(document.getElementById('eventModal'));
-            modal.show();
+            // Cari index event pada carousel yang cocok
+            const carouselItems = document.querySelectorAll('#eventCarousel .carousel-item');
+            let targetIndex = 0;
+            carouselItems.forEach((item, index) => {
+                const captionTitle = item.querySelector('.carousel-caption h5')?.textContent
+                    .trim();
+                if (captionTitle === targetTitle) {
+                    targetIndex = index;
+                }
+            });
+
+            // Ubah slide di carousel ke index yang ditemukan
+            const carousel = new bootstrap.Carousel(document.querySelector('#eventCarousel'));
+            carousel.to(targetIndex);
+
+            // Scroll ke atas halaman untuk lihat carousel
+            document.getElementById('eventCarousel').scrollIntoView({
+                behavior: 'smooth'
+            });
         }
+
     });
     calendar.render();
 });

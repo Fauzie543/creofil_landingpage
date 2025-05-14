@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ini penting buat mobile responsif -->
-    <title>CREOFIL STUDIO</title>
+    <title>@yield('title', 'CREOFIL STUDIO')</title>
     <link rel="icon" type="image/png" href="{{ asset('storage/logo/logo.creofil.png') }}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,6 +13,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+    <meta name="description"
+        content="@yield('meta_description', 'Creofil is a creative studio and space that provides everything you need.')">
+    <meta name="keywords"
+        content="@yield('meta_keywords', 'Creofil, Studio, Space, Event, Menu, Coffee Shop, Bogor, cibinong')">
+    <meta name="author" content="Creofil Studio & Space">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
     html,
