@@ -45,6 +45,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('/posters', App\Http\Controllers\Admin\PosterController::class);
     Route::resource('/menus', App\Http\Controllers\Admin\MenuController::class);
     Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
+    Route::resource('/landing', \App\Http\Controllers\Admin\LandingContentController::class);
+
 
 });
 

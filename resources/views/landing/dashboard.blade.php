@@ -22,38 +22,24 @@
 </div>
 
 
+@foreach($landingContents->take(2) as $content)
+<div class="py-5 bg-light">
+    <div class="container d-flex flex-column flex-md-row align-items-center gap-5 
+        {{ $loop->even ? 'flex-md-row-reverse' : '' }}">
 
-<div class="bg-info-subtle py-5" id="event">
-    <div class="container">
-        <h3 class="text-center fw-bold mb-4">Upcoming Event</h3>
-
-        <div id='calendar'></div>
-        <!-- Modal -->
-        <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="eventModalLabel">Event Detail</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h6 id="modalEventTitle"></h6>
-                        <p><strong>Start:</strong> <span id="modalEventStart"></span></p>
-                        <p><strong>End:</strong> <span id="modalEventEnd"></span></p>
-                    </div>
-                </div>
-            </div>
+        <div class="flex-shrink-0">
+            <img src="{{ asset('storage/' . $content->image) }}" alt="Image" class="img-fluid rounded-4 shadow"
+                style="max-width: 500px;">
         </div>
-
-
-        <ul class="mt-4">
-            @foreach($events as $event)
-            <li><strong>{{ \Carbon\Carbon::parse($event->start_time)->format('d M') }}</strong> - {{ $event->title }}
-            </li>
-            @endforeach
-        </ul>
+        <div>
+            <h2 class="fw-bold mb-3">{{ $content->title }}</h2>
+            <p class="text-muted" style="text-align: justify;">
+                {{ $content->description }}
+            </p>
+        </div>
     </div>
 </div>
+@endforeach
 
 <div class="py-5 text-white text-center"
     style="background-image: url('/storage/logo/poster.jpeg'); background-size: cover;">

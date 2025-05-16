@@ -36,6 +36,13 @@
                 <span class="fw-medium">Poster Profil</span>
             </a>
         </li>
+        <li class="nav-item mt-2">
+            <a href="{{ route('admin.landing.index') }}" class="nav-link d-flex align-items-center px-3 py-2 rounded-pill
+        {{ Route::is('admin.landing.*') ? 'bg-light text-dark fw-semibold' : 'text-secondary' }}">
+                <i class="bi bi-image-fill me-2 {{ Route::is('admin.landing.*') ? 'text-dark' : '' }}"></i>
+                <span class="fw-medium">Landing Content</span>
+            </a>
+        </li>
 
         <li class="nav-item mt-2">
             <a href="{{ route('admin.feedback.index') }}" class="nav-link d-flex align-items-center px-3 py-2 rounded-pill

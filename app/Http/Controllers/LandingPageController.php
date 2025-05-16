@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Feedback;
 use App\Models\Event;
 use App\Models\Poster;
+use App\Models\LandingContent;
 use App\Models\Menu;
 use App\Models\Category;
 
@@ -21,7 +22,8 @@ class LandingPageController extends Controller
     public function index() {
         $events = Event::select('title', 'start_time as start', 'end_time as end', 'poster_image')->orderBy('start_time')->get();
         $posters = Poster::select('photo', 'status')->get();
-        return view('landing.dashboard', compact('events', 'posters'));
+        $landingContents = LandingContent::all();
+        return view('landing.dashboard', compact('events', 'posters', 'landingContents'));
     }
         
     public function about()
