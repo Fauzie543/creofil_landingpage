@@ -1,70 +1,55 @@
-<aside class="bg-white shadow-sm border-end vh-100 d-flex flex-column align-items-center p-3">
-    <!-- Logo -->
-    <a href="{{ route('admin.dashboard') }}" class="text-decoration-none text-center mb-4">
-        <img src="{{ asset('storage/logo/logo.png') }}" alt="CREOFIL Logo" class="mb-2 rounded shadow-sm"
-            style="height: 56px;">
-        <h1 class="h6 fw-bold text-dark m-0">CREOFIL ADMIN</h1> <!-- text-primary diganti text-dark -->
-    </a>
+{{-- Toggle button (only visible on small screens) --}}
+<nav class="d-md-none navbar navbar-light bg-white shadow-sm p-3">
+    <div class="container-fluid">
+        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu"
+            aria-controls="sidebarMenu">
+            <i class="bi bi-list"></i>
+        </button>
+        <span class="navbar-brand mb-0 h6">Admin Panel</span>
+    </div>
+</nav>
 
-    <!-- Nav Items -->
-    <ul class="nav flex-column w-100 mt-4">
-        <li class="nav-item">
-            <a href="{{ route('admin.users.index') }}" class="nav-link d-flex align-items-center px-3 py-2 rounded-pill
-                {{ Route::is('admin.users.*') ? 'bg-light text-dark fw-semibold' : 'text-secondary' }}">
-                <i class="bi bi-people-fill me-2 {{ Route::is('admin.users.*') ? 'text-dark' : '' }}"></i>
-                <span class="fw-medium">User Management</span>
-            </a>
-        </li>
-        <li class="nav-item mt-2">
-            <a href="{{ route('admin.menus.index') }}" class="nav-link d-flex align-items-center px-3 py-2 rounded-pill
-        {{ Route::is('admin.menus.*') ? 'bg-light text-dark fw-semibold' : 'text-secondary' }}">
-                <i class="bi bi-list-ul me-2 {{ Route::is('admin.menus.*') ? 'text-dark' : '' }}"></i>
-                <span class="fw-medium">Menu</span>
-            </a>
-        </li>
-        <li class="nav-item mt-2">
-            <a href="{{ route('admin.events.index') }}" class="nav-link d-flex align-items-center px-3 py-2 rounded-pill
-                {{ Route::is('admin.events.*') ? 'bg-light text-dark fw-semibold' : 'text-secondary' }}">
-                <i class="bi bi-calendar-event-fill me-2 {{ Route::is('admin.events.*') ? 'text-dark' : '' }}"></i>
-                <span class="fw-medium">Event</span>
-            </a>
-        </li>
-        <li class="nav-item mt-2">
-            <a href="{{ route('admin.posters.index') }}" class="nav-link d-flex align-items-center px-3 py-2 rounded-pill
-        {{ Route::is('admin.posters.*') ? 'bg-light text-dark fw-semibold' : 'text-secondary' }}">
-                <i class="bi bi-image-fill me-2 {{ Route::is('admin.posters.*') ? 'text-dark' : '' }}"></i>
-                <span class="fw-medium">Poster Profil</span>
-            </a>
-        </li>
-        <li class="nav-item mt-2">
-            <a href="{{ route('admin.landing.index') }}" class="nav-link d-flex align-items-center px-3 py-2 rounded-pill
-        {{ Route::is('admin.landing.*') ? 'bg-light text-dark fw-semibold' : 'text-secondary' }}">
-                <i class="bi bi-image-fill me-2 {{ Route::is('admin.landing.*') ? 'text-dark' : '' }}"></i>
-                <span class="fw-medium">Landing Content</span>
-            </a>
-        </li>
+{{-- Sidebar --}}
+<div class="offcanvas-md offcanvas-start bg-white shadow-sm border-end vh-100" tabindex="-1" id="sidebarMenu">
+    <div class="offcanvas-header d-md-none">
+        <h5 class="offcanvas-title">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
 
-        <li class="nav-item mt-2">
-            <a href="{{ route('admin.feedback.index') }}" class="nav-link d-flex align-items-center px-3 py-2 rounded-pill
-        {{ Route::is('admin.feedback.*') ? 'bg-light text-dark fw-semibold' : 'text-secondary' }}">
-                <i class="bi bi-chat-left-text-fill me-2 {{ Route::is('admin.feedback.*') ? 'text-dark' : '' }}"></i>
-                <span class="fw-medium">Feedback</span>
-            </a>
-        </li>
+    <div class="offcanvas-body d-flex flex-column p-3">
+        {{-- Logo --}}
+        <a href="{{ route('admin.dashboard') }}" class="text-decoration-none text-center mb-4">
+            <img src="{{ asset('storage/logo/logo.png') }}" alt="CREOFIL Logo"
+                class="mb-2 rounded shadow-sm mx-auto d-block" style="height: 56px;">
+            <h1 class="h6 fw-bold text-dark">CREOFIL ADMIN</h1>
+        </a>
 
-    </ul>
-</aside>
+        {{-- Nav Items --}}
+        <ul class="nav flex-column">
+            @php
+            $items = [
+            ['route' => 'admin.users.*', 'icon' => 'people-fill', 'label' => 'User Management', 'url' =>
+            route('admin.users.index')],
+            ['route' => 'admin.menus.*', 'icon' => 'list-ul', 'label' => 'Menu', 'url' => route('admin.menus.index')],
+            ['route' => 'admin.landing.*', 'icon' => 'image-fill', 'label' => 'Landing Content', 'url' =>
+            route('admin.landing.index')],
+            ['route' => 'admin.events.*', 'icon' => 'calendar-event-fill', 'label' => 'Event', 'url' =>
+            route('admin.events.index')],
+            ['route' => 'admin.posters.*', 'icon' => 'image-fill', 'label' => 'Poster Profil', 'url' =>
+            route('admin.posters.index')],
+            ['route' => 'admin.feedback.*', 'icon' => 'chat-left-text-fill', 'label' => 'Feedback', 'url' =>
+            route('admin.feedback.index')],
+            ];
+            @endphp
 
-<style>
-.nav-link {
-    transition: all 0.2s ease-in-out;
-    text-decoration: none !important;
-}
-
-.nav-link:hover {
-    background-color: #f0f0f0;
-    /* abu-abu muda */
-    color: #212529 !important;
-    /* font hitam */
-}
-</style>
+            @foreach($items as $item)
+            <li class="nav-item mt-2">
+                <a href="{{ $item['url'] }}"
+                    class="nav-link d-flex align-items-center px-3 py-2 rounded {{ Route::is($item['route']) ? 'bg-light fw-semibold text-dark' : 'text-secondary' }}">
+                    <i class="bi bi-{{ $item['icon'] }} me-2"></i> {{ $item['label'] }}
+                </a>
+            </li>
+            @endforeach
+        </ul>
+    </div>
+</div>

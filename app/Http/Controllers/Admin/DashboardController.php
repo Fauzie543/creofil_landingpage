@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\Menu;
 use App\Models\Feedback;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -14,6 +15,7 @@ class DashboardController extends Controller
     public function index()
     {
         $totalEvents = Event::count();
+        $totalMenus = Menu::count();
         $totalFeedbacks = Feedback::count();
         $totalVisitors = DB::table('page_visits')->count();
 
@@ -22,6 +24,10 @@ class DashboardController extends Controller
         $currentYear = Carbon::now()->year;
 
         $eventsThisMonth = Event::whereYear('created_at', $currentYear)
+                                ->whereMonth('created_at', $currentMonth)
+                                ->count();
+                                
+        $menusThisMonth = Menu::whereYear('created_at', $currentYear)
                                 ->whereMonth('created_at', $currentMonth)
                                 ->count();
 
@@ -35,8 +41,8 @@ class DashboardController extends Controller
                                ->count();
 
         return view('admin.dashboard', compact(
-            'totalEvents', 'totalFeedbacks', 'totalVisitors',
-            'eventsThisMonth', 'feedbacksThisMonth', 'visitorsThisMonth'
+            'totalEvents', 'totalMenus', 'totalFeedbacks', 'totalVisitors',
+            'eventsThisMonth', 'menusThisMonth', 'feedbacksThisMonth', 'visitorsThisMonth'
         ));
         
     }
